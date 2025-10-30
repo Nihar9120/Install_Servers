@@ -1,0 +1,79 @@
+How to install Jenkins in redhat like (aws amazon ec2):
+=======================================================
+step-1:
+
+add Jenkins repo to your yum repository
+=======================================
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+step-2:
+
+important a key file from jenkins-CI to enable installation from the package
+============================================================================
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+step-3:
+
+update all packages
+===================
+sudo yum upgrade
+
+step-4:
+
+you have set a jenkin server then java(jdk) is important in your system
+=======================================================================
+sudo yum install fontconfig java-21-openjdk  --> if this command in case not work then use 
+
+sudo dnf install java-21-amazon-corretto-devel  --> this command also used 
+
+after java installation complete
+================================
+java -version --> is used to check java version download or not.
+
+step-5:
+
+then install Jenkins
+====================
+sudo yum install jenkins
+
+step-6:
+
+to enable Jenkins steps by step use below commands
+==================================================
+1.sudo systemctl daemon-reload
+2.sudo systemctl enable jenkins
+3.sudo systemctl start jenkins
+4.sudo systemctl status jenkins
+
+step-7
+
+go to your aws console then copy your ec2 public ip then paste ur browser
+=========================================================================
+ 13.127.30.171:8080
+
+:8080 is a default port on jenkin server so u must add in ur ip.
+
+step-8
+
+after complete, jenkins server on and showing Adminpassword
+===========================================================
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword -->write in ur Linux machine and showing pwd.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
