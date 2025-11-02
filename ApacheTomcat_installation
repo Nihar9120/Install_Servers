@@ -24,7 +24,7 @@ Go to official page apache tomcat download,go download versions:
 ================================================================ 
 let go to tomcat 9, one more "core option is there" inside the core one tar.gz file is there, right click and copy link address, and go to ur Linux machine using below cmd:
 
-wget <tomcat-tar-file-url>
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.111/bin/apache-tomcat-9.0.111.tar.gz
 
 step-3:
 
