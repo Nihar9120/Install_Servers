@@ -26,7 +26,7 @@ sudo yum install fontconfig java-21-openjdk  --> if this command in case not wor
 
 sudo dnf install java-21-amazon-corretto-devel  --> this command also used
 
-sudo dnf install java-17-amazon-corretto -y
+sudo dnf install java-17-amazon-corretto -y  -->choose this java s/w because no issues of future.
 
 after java installation complete
 ================================
