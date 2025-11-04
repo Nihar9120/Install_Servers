@@ -2,21 +2,27 @@ Apache Tomcat Server Download in Linux(aws ec2):
 ================================================
 step-1:
 
+all packages are updated:
+=========================
+$ sudo yum upgrade
+
 install java software using below commands:
 ===========================================
-sudo yum install fontconfig java-21-openjdk  --> if this command in case not work then use 
+$ sudo yum install fontconfig java-21-openjdk  --> if this command in case not work then use 
 
-sudo dnf install java-21-amazon-corretto-devel  --> this command also used 
+$ sudo dnf install java-21-amazon-corretto-devel  --> this is the latest java s/w.
+
+$ sudo dnf install java-17-amazon-corretto -y  --> choose this java s/w because no issues of future.
 
 after intall to check download or not using below cmd:
 ======================================================
-java -version
+$ java -version
 
 Note:
 =====
 If we have multiple java versions installed then we can switch to particular version using below cmd:
 
-sudo alternatives --config java
+$ sudo alternatives --config java
 
 step-2:
 
@@ -24,28 +30,28 @@ Go to official page apache tomcat download,go download versions:
 ================================================================ 
 let go to tomcat 9, one more "core option is there" inside the core one tar.gz file is there, right click and copy link address, and go to ur Linux machine using below cmd:
 
-wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.111/bin/apache-tomcat-9.0.111.tar.gz
+$ wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.111/bin/apache-tomcat-9.0.111.tar.gz
 
 step-3:
 
 tar file to extract using below cmd:
 ====================================
-tar -xvf <tomcat-tar-file-name>
+$ tar -xvf <tomcat-tar-file-name>
 
 step-4:
 
 Go to tomcat folder using below cmd:
 ====================================
-cd tomact_folder_name
-ls -lt --> to showing all list means files or folders
+$ cd tomact_folder_name
+$ ls -lt --> to showing all list means files or folders
 
 step-5:
 
 go to bin folder:
 =================
-cd bin/  -->then, inside one script file is there "./startup.sh"
+$ cd bin/  -->then, inside one script file is there "./startup.sh"
 
-./startup.sh -->run this cmd then tomcat server started.
+$ ./startup.sh -->run this cmd then tomcat server started.
 
 Note:
 =====
@@ -58,6 +64,44 @@ source: custom (0.0.0.0/0)
 
 then access Tomcat server ur browser:
 url: ur ec2-vm-public-ip:8080/
+
+Note: after complete successfully,browser can access url but u can't access server status or manager app
+
+so what will be do:
+===================
+go to webapps folder:
+=====================
+cd apache-tomcat-9.0.111/webapps/manager/META-INF/
+ls -lt  -->list files and folders
+vi context.xml  --> inside this file one valve tag is there below check
+   <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+             allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+this valve tag you can also comment, because this ip address is not allowd any one,what will do
+<!-- Valve className="org.apache.catalina.valves.RemoteAddrValve"
+             allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /-->
+
+after done, then go to conf folder:
+==================================
+cd apache-tomcat-9.0.111/cnf/
+ls -lt  -->list files and folders
+vi tomcat-users.xml  --> in this file go to bottom and configure rolename and username
+
+-->
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<role rolename="admin-gui"/>
+
+<user username="nihar" password="nihar" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui"/>
+
+after done, then go to bin folder:
+==================================
+cd apache-tomcat-9.0.111/bin/
+ls -lt  -->list files and folders
+./startup.sh  -->this cmd use ur tomcat started.
+
+Note:Now u can access all of these.
 
 
 
