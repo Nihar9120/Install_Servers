@@ -1,0 +1,130 @@
+SonarQube installation process:
+===============================
+1st of all SonarQube min required ram 2gb, so must lunch instance as 4gb ram.
+
+step-1:
+
+go to root user:
+================
+$ sudo su 
+
+step-2:
+
+all packages are updated:
+=========================
+# yum upgrade
+
+step-3:
+
+go to this directory:
+=====================
+# cd /opt
+
+step-4
+
+install java s/w:
+=================
+# dnf install java-17-amazon-corretto -y  -->im use 17 because have no issues but u have uses 21 or other 
+                                           some issues are facing.
+
+step-5:
+
+install SonarQube:
+==================
+# wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.9.4.87374.zip
+
+-->this link for SonarQube version 9.9 LTS, compatibility of java 17.
+-->it is a zip format.
+
+step-6:
+
+to unzip sonar folder:
+======================
+# unzip <sonar_folder_name>
+
+Note: SonarQube server will not run with root user, that's why create a user.
+ 
+step-7:
+
+user creation:
+==============
+# useradd sonar
+# visudo  -->configure sudo user without pwd using below cmd
+             sonar ALL=(ALL) NOPASSWD: ALL
+
+step-8:
+
+change ownership for sonar folder:
+==================================
+# chown -R sonar:sonar /opt/sonarqube-9.9.4.87374
+
+change sonar folder permission:
+===============================
+# chmod -R 775 /opt/sonarqube-9.9.4.87374
+
+step-9:
+
+switch to sonar user:
+=====================
+# su - sonar
+
+step-10:
+
+go to bin directory:
+====================
+cd /opt/sonarqube-9.9.4.87374/bin/linux-x86-64
+
+step-11:
+
+run sonar server:
+=================
+./sonar.sh start
+
+check sonar server status:
+==========================
+./sonar.sh status
+
+Note: SonarQube server port no is 9000,so you can must add port no.9000 in security group.
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                             
