@@ -24,7 +24,9 @@ you have set a jenkin server then java(jdk) is important in your system
 =======================================================================
 sudo yum install fontconfig java-21-openjdk  --> if this command in case not work then use 
 
-sudo dnf install java-21-amazon-corretto-devel  --> this command also used 
+sudo dnf install java-21-amazon-corretto-devel  --> this command also used
+
+sudo dnf install java-17-amazon-corretto -y
 
 after java installation complete
 ================================
