@@ -1,0 +1,76 @@
+Working with Master and Slave Architecture:
+===========================================
+step-1:
+
+create Jenkins master:
+======================
+1.create ec2 instance
+2.connect ec2 using mobaxterm
+3.install git client
+4.install java software
+5.install Jenkins server
+6.add git, jdk and maven plugins
+7.enable jenkins port number in sequrity group 
+8.Access Jenkins server in browser and login
+
+step-2:
+
+create Jenkins slave:
+=====================
+1.create ec2 instance
+2.connect ec2 using mobaxterm
+3.install git client
+4.install java software
+5.create one directory in /home/ec2-user (ex:slavenode)
+
+step-3:
+
+Configure slave in Jenkins server:
+==================================
+1.go to Jenkins dashboard
+2.go to manage Jenkins 
+3.go to manage Jenkins nodes and clouds
+4.click on 'new node' -->enter node name -->select permanent agent
+5.enter remote root directory (/home/ec2-user/slavenode)
+6.enter label name as slave-1
+7.select lunch method as 'lunch agents via ssh'
+8.give host as 'slave vm dns url'
+9.add credentials (select kind as : ssh username with private key)
+10.enter user-name as: ec2-user
+11.select private as enter directly and add private key
+
+note:open gitbash from your .pem file location and execute below command to get private key from pem file
+     $cat <.pem file name>
+
+note:it will display private key on git bash terminal(just copy and paste in jenkins)
+
+12.select host key strategy as 'manually trusted key verification strategy'
+13.click on apply and save(we can see configure slave)
+
+-->with the above steps master and slave configuration completed 
+-->go to Jenkins server and create Jenkins job
+
+note:under generation section of job creation process, select "restrict where this project can run" and enter slave-1 label name and finish job creation.
+
+-->execute the job using "build now" option
+
+note:job will be executed on slavenode(go to job console o/p and verify execution details.)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
