@@ -1,0 +1,160 @@
+Ansible Setup:
+=============
+--> create 2 RedHat systems in aws(free tier eligible)
+    1.Ansible System
+    2.Host System
+
+--> Connects to all the systems and create ansible user.
+
+$sudo useradd ansible
+$sudo password ansible
+
+pwd
+confirm pwd
+
+$sudo visudo
+ansible ALL=(ALL) NOPASSWD: ALL
+
+$sudo vi /etc/ssh/sshd-config
+-->comment - passwordauthentication no
+-->un-comment - passwordauthentication Yes
+
+restart the server:
+===================
+$sudo service sshd restart
+
+Note: Do the above steps in all the 2 machines. it's optional but highly recommended.
+
+
+Install Ansible in Control Node:
+================================  
+step-1:
+
+switch to ansible user:
+=======================
+$ sudo su ansible
+
+step-2:
+
+Install python:
+===============
+$ sudo yum install python3 -y
+
+check python version:
+=====================
+python --version (it will fail bcz we used python3)
+
+update python alternatives(renamed):
+====================================
+$ sudo alternatives --set python /usr/bin/python3
+
+-->now check the python version.
+
+step-3:
+
+install pip(is a python package manager):
+========================================
+$ sudo yum -y install python3-pip
+
+step-4:
+
+install ansible using python pip:
+=================================
+pip3 install ansible --user
+
+verify ansible version:
+=======================
+ansible --version
+
+step-5:
+
+create ansible folder under /etc:
+=================================
+$ sudo mkdir /etc/ansible
+
+
+step-6:
+
+create ansible.cfg file under /etc/ansible and paste complete content from below git link.
+==========================================================================================
+open: https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg
+
+copy the content and paste it in ansible.cfg file with below command
+
+$ sudo vi /etc/ansible/ansible.cfg
+
+step-7:
+
+create hosts file under /etc/ansible and paste complete content from below git link.
+==========================================================================================
+open: https://raw.githubusercontent.com/ansible/ansible/devel/examples/hosts
+
+copy the content and paste it in hosts file with below command
+
+$ sudo vi /etc/ansible/hosts
+
+***************** with this ansible setup completed ******************************
+
+then go to connect master node to host node
+
+step-1:
+
+update host inventory in ansible server to add host servers details to test connection
+=======================================================================================
+
+$ sudo vi /etc/ansible/hosts
+
+connect using username and password:
+====================================
+HOSTNODE-PRIVATE-IP ansible_user=ansible ansible_password=ansible
+
+step-2:
+
+use ping module to test ansible and after successful run you can see the below output:
+======================================================================================
+$ ansible all -m ping
+
+Note:install "sshpass" in ansible server if you get below error.
+
+"to use the ssh" connection type with passwords, you must install the sshpass program
+
+$sudo yum install sshpass -y
+
+$ansible all -m ping
+
+Note: in case its not working then go to another approach
+
+Generate ssh key in control node and copy ssh key into host node:
+=================================================================
+step-1:
+
+Now generate ssh key in ansible server(control node):
+=====================================================
+$ sudo su ansible
+$ ssh-keygen
+
+step-2:
+
+copy it to host server an ansible user:
+=======================================
+$ ssh-copy-id ansible@<HOSTNODE-PRIVATE-IP>
+
+
+Note:Repeat below command by updating host-private-ip for all the host servers.
+
+step-3:
+
+update host inventory in ansible server to add host servers details
+===================================================================
+$ sudo vi /etc/ansible/hosts
+
+#connect using username and password
+====================================
+#192.168.1.105 ansible_user=ansible ansible_password=ansible
+
+step-4:
+
+to check successful connect or not:
+===================================
+ansible all -m ping
+
