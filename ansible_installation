@@ -7,7 +7,7 @@ Ansible Setup:
 --> Connects to all the systems and create ansible user.
 
 $sudo useradd ansible
-$sudo password ansible
+$sudo passwd ansible
 
 pwd
 confirm pwd
@@ -15,7 +15,7 @@ confirm pwd
 $sudo visudo
 ansible ALL=(ALL) NOPASSWD: ALL
 
-$sudo vi /etc/ssh/sshd-config
+$sudo vi /etc/ssh/sshd_config
 -->comment - passwordauthentication no
 -->un-comment - passwordauthentication Yes
 
