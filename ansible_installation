@@ -140,3 +140,43 @@ to check successful connect or not:
 ===================================
 ansible all -m ping
 
+Note: After its not connected showing permission denied (publickey. gssapl-keyex....)
+
+go to your ansible control node or manager node:
+================================================
+go to ssh file:
+===============
+vi .ssh/id_rsa.pub  -->open this file
+
+all data's are copy.
+
+then paste your ansible host node:
+==================================
+sudo vi .ssh/authorized_key/
+
+then connect.
+ssh-copy-id nihar@hostprivateip  -->to access your host node
+
+ansible all -m ping   -->to access and write ansible playbooks.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
