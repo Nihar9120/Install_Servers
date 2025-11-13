@@ -6,10 +6,10 @@ Ansible Setup:
 
 --> Connects to all the systems and create ansible user.
 
-$sudo useradd ansible
-$sudo passwd ansible
+$sudo useradd nihar
+$sudo passwd nihar
 
-pwd
+pwd type:
 confirm pwd
 
 $sudo visudo
@@ -23,6 +23,30 @@ restart the server:
 ===================
 $sudo service sshd restart
 
+Note: new user create, but by default in this user .ssh dir. not available. How to add, and ssh dir must available bcz ssh connection in another host.
+
+first go to your new user ac:
+==========================
+sudo su - nihar
+
+first create:
+=============
+mkdir .ssh
+
+second copy ssh/authorized_keys in ec2-user to newuser:
+=======================================================
+sudo cp /home/ec2-user/.ssh/authorized_keys .    --> . it means in your present dir.
+
+after ownership change and file permission change:
+==================================================
+first ownership:
+================
+chown nihar:nihar .ssh/authorized_keys
+
+then file permission change:
+============================
+chmod 700 .ssh/authorized_keys
+
 Note: Do the above steps in all the 2 machines. it's optional but highly recommended.
 
 
@@ -32,35 +56,13 @@ step-1:
 
 switch to ansible user:
 =======================
-$ sudo su ansible
+$ sudo su - nihar
 
 step-2:
 
-Install python:
-===============
-$ sudo yum install python3 -y
-
-check python version:
-=====================
-python --version (it will fail bcz we used python3)
-
-update python alternatives(renamed):
-====================================
-$ sudo alternatives --set python /usr/bin/python3
-
--->now check the python version.
-
-step-3:
-
-install pip(is a python package manager):
-========================================
-$ sudo yum -y install python3-pip
-
-step-4:
-
-install ansible using python pip:
-=================================
-pip3 install ansible --user
+install ansible:
+================
+sudo yum install ansible-core
 
 verify ansible version:
 =======================
@@ -68,30 +70,10 @@ ansible --version
 
 step-5:
 
-create ansible folder under /etc:
-=================================
-$ sudo mkdir /etc/ansible
+after install ansible folder is created by default under /etc:
+==============================================================
+$ sudo cd /etc/ansible
 
-
-step-6:
-
-create ansible.cfg file under /etc/ansible and paste complete content from below git link.
-==========================================================================================
-open: https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg
-
-copy the content and paste it in ansible.cfg file with below command
-
-$ sudo vi /etc/ansible/ansible.cfg
-
-step-7:
-
-create hosts file under /etc/ansible and paste complete content from below git link.
-==========================================================================================
-open: https://raw.githubusercontent.com/ansible/ansible/devel/examples/hosts
-
-copy the content and paste it in hosts file with below command
-
-$ sudo vi /etc/ansible/hosts
 
 ***************** with this ansible setup completed ******************************
 
