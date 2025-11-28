@@ -62,6 +62,21 @@ after complete, jenkins server on and showing Adminpassword
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword -->write in ur Linux machine and showing pwd.
 
 
+How to change Jenkins port number:
+==================================
+1.Go to root directory
+2.Go to /etc/sysconfig
+3.Open Jenkins file and change Jenkins port number
+4.Restart Jenkins server
+
+
+If we Forgot Jenkins Password, Then how to recover it ?
+=======================================================
+1.Go to /var/lib/jenkins/config.xml
+2.Set Value for userSecurity as false
+  ex: <userSecurity>false</userSecurity>
+3.Restart Jenkins and try to access.
+
 
 
 
