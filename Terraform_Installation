@@ -1,0 +1,57 @@
+Terraform installation:
+=======================
+step-1:
+=======
+create a ec2-instance (RedHat Linux)
+
+step-2:
+======
+connect to ec2 vm using Mobaxterm
+
+step-3:
+=======
+switch to root user
+ $ sudo su -
+
+step-4:
+=======
+upgrade all packages
+ # yum upgrade
+
+step-5:
+=======
+yum-utils ->The name of the package to install.
+ # yum install -y yum-utils
+
+yum-utils is a collection of useful YUM-related tools, such as:
+ yum-config-manager
+ package-cleanup
+ reposync
+ debuginfo-install
+
+step-6:
+========
+yum-related tools
+ # yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+step-7:
+=======
+install terraform
+ # yum -y install terraform
+
+step-8:
+=======
+check terraform version
+ # terraform --version
+
+step-9:
+=======
+create IAM user with programmatic access and provide "AmazonEc2FullAccess"
+
+step-10:
+========
+Download Secret key and Access key
+
+step-11:
+========
+Then Write Terraform script.
