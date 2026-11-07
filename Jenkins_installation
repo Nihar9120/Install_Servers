@@ -1,66 +1,78 @@
-How to install Jenkins in redhat like (aws amazon ec2):
-=======================================================
-step-1:
+Jenkins :
+=========
+--> Jenkins is an open-source Automation Tool for CI and CD.
 
-add Jenkins repo to your yum repository
-=======================================
-sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+--> Jenkins Developed using Java.
 
-step-2:
+--> Jenkins is part of Hudson Project.
 
-important a key file from jenkins-CI to enable installation from the package
-============================================================================
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+--> Initial it is called as Hudson, Then later it was renamed as Jenkins.
 
-step-3:
+Installation :
+==============
+--> Jenkins Installation in Linux Machine means, First to check Java Installed or Not.
 
-update all packages
-===================
-sudo yum upgrade
+    $ java -version
+    $ javac -version
 
-step-4:
+--> If not Installed Java in your Machine Then, First Install Java
 
-you have set a jenkin server then java(jdk) is important in your system
-=======================================================================
-sudo yum install fontconfig java-21-openjdk  --> if this command in case not work then use 
+    $ sudo dnf/yum install java-21-openjdk-devel
+    
+    $ sudo dnf/yum install java-17-openjdk-devel
 
-sudo dnf install java-21-amazon-corretto-devel  --> this command also used
+--> Since you're learning Jenkins, Maven, Tomcat, and Java for DevOps, Below mention which version is suitable or best working.
 
-sudo dnf install java-17-amazon-corretto -y  -->choose this java s/w because no issues of future.
+--> Learn Java 17 if you're working with older enterprise projects, as many companies still use it.
 
-after java installation complete
-================================
-java -version --> is used to check java version download or not.
+--> Learn Java 21 for new projects because it's the newer LTS release with modern features and performance improvements.
 
-step-5:
 
-then install Jenkins
-====================
-sudo yum install jenkins
+--> After Java Installation Successfull, Go to add Jenkins Repository to your YUM Repository in Jenkins Machines
+  
+   $ sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/rpm-stable/jenkins.repo
 
-step-6:
+--> Update All Packages
+   
+   $ sudo yum upgrade
 
-to enable Jenkins steps by step use below commands
-==================================================
-1.sudo systemctl daemon-reload
-2.sudo systemctl enable jenkins
-3.sudo systemctl start jenkins
-4.sudo systemctl status jenkins
+--> Now Install Jenkins
 
-step-7
+   $ sudo yum install jenkins
 
-go to your aws console then copy your ec2 public ip then paste ur browser
-=========================================================================
- 13.127.30.171:8080
+--> To Enable Jenkins step by step using below commands :
 
-:8080 is a default port on jenkin server so u must add in ur ip.
+   $ sudo systemctl daemon-reload
 
-step-8
+   $ sudo systemctl enable jenkins
 
-after complete, jenkins server on and showing Adminpassword
-===========================================================
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword -->write in ur Linux machine and showing pwd.
+   $ sudo systemctl start jenkins
 
+   $ sudo systemctl status jenkins
+
+--> Go to your AWS Console then copy your ec2 public ip, then paste ur your browser :
+
+   Open Browser and write your ip <public-ip>:8080/ 
+   (Like : 13.127.30.171:8080/)
+
+   :8080 is a Jenkins default port no., so u must add in ur ip.
+
+--> Put this ip, showing Jenkins server and also ask Jenkins Admin Password, Go to jenkins linux machine to write below command
+ 
+   $ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+   --> Copy the password and paste in Jenkins Server.
+
+--> After, Then click on Install Suggested Plugins and set admin username, password.
+
+Issues :
+========
+--> Once AWS ec2 stopped jenkins Instance, Again start server then Public IP must be changed. Jenkins prevoius ip and aws new ip doesn't match, so Jenkin server almost run but it's running very slow. To overcome this problem used below command
+
+   $ sudo vi /var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
+    
+--> Only for public ip changed, and save. Again restart jenkins.
 
 How to change Jenkins port number:
 ==================================
